@@ -61,14 +61,14 @@ class Home extends React.Component {
   };
 
   loadJson = () => {
-    const json = window.localStorage.getItem(LOCALSTORAGE_KEY) || JSON.stringify(SAMPLE_JSON, null, 2);
+    const json = window.localStorage.getItem(LOCALSTORAGE_KEY) || JSON.stringify(SAMPLE_JSON);
     this.setState({ taskStorage:JSON.parse(json)});
   };
 
   validateJson () {
     let validJson;
     try{
-      validJson = JSON.stringify(this.state.taskStorage, null, 2)
+      validJson = JSON.stringify(this.state.taskStorage)
     } catch(e) {
       throw e
     }
@@ -85,7 +85,6 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log(this.state.taskStorage);
     return (
         <div className="home-container">
           <CreateTaskForm
@@ -116,6 +115,9 @@ class Home extends React.Component {
                         Created On : {moment(item.createdDate).format('MMM Do YY')}  <br/>
                       </ListItemText>
                       <ListItemSecondaryAction>
+                        <Button color="primary">
+                          Mark As Complete
+                        </Button>
                         <IconButton edge="end" aria-label="delete">
                           <DeleteIcon onClick={()=>this.deleteTask(item.id)}/>
                         </IconButton>
